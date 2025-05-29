@@ -1,4 +1,7 @@
 
+using MahalliyMarket.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace MahalliyMarket
 {
     public class Program
@@ -14,6 +17,10 @@ namespace MahalliyMarket
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            // Register the PostgreSQL database context
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))); 
 
             var app = builder.Build();
 
