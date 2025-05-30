@@ -21,8 +21,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(p => p.Description).HasMaxLength(500);
             entity.Property(p => p.Price).HasColumnType("decimal(18,2)");
             entity.Property(p => p.ImageUrl).HasMaxLength(200);
-            entity.Property(p => p.CreatedAt).HasDefaultValueSql("GETDATE()");
-            entity.Property(p => p.UpdatedAt).HasDefaultValueSql("GETDATE()");
+            entity.Property(p => p.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(p => p.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
     }
     
