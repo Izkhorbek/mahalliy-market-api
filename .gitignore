@@ -1,3 +1,10 @@
 # Ignore all obj folders
 obj/
 **/obj/
+# Ignore all bin folders
+bin/
+**/bin/
+# Ignore all .user files
+*.user
+# Ignore all appsetting.json files
+appsettings.json
