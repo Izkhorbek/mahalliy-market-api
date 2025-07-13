@@ -13,7 +13,7 @@ public class Product
       public int user_id { get; set; }
 
       [ForeignKey("user_id")]
-      public User User { get; set; }
+      public User user { get; set; } 
 
       [Required(ErrorMessage = "Product Name is required.")]
       [StringLength(100, MinimumLength = 10, ErrorMessage = "Product Name must be between 3 and 100 characters.")]
@@ -41,12 +41,44 @@ public class Product
       [Required(ErrorMessage = "Category ID is required.")]
       public int category_id { get; set; }
 
-      [ForeignKey("CategoryId")]
-      public Category Category { get; set; }
+      [ForeignKey("category_id")]
+      public Category category { get; set; }
 
-      // public ICollection<ProductImage> Images { get; set; }
+      /// <summary>
+      /// ID of the primary/featured image for this product
+      /// </summary>
+      public int? product_image_id { get; set; }
 
-      public ICollection<OrderItem> OrderItems { get; set; }
+      /// <summary>
+      /// Navigation property to the primary/featured image
+      /// </summary>
+      [ForeignKey("product_image_id")]
+      public virtual ProductImage? primary_image { get; set; }
 
-      public ICollection<Feedback> Feedbacks { get; set; }
+      /// <summary>
+      /// Collection of all images for this product
+      /// </summary>
+      public virtual ICollection<ProductImage> images { get; set; } = new List<ProductImage>();
+
+      /// <summary>
+      /// Collection of all videos for this product
+      /// </summary>
+      public virtual ICollection<ProductVideo> videos { get; set; } = new List<ProductVideo>();
+
+      /// <summary>
+      /// Collection of all feedback for this product
+      /// </summary>
+      public virtual ICollection<ProductFeedback> feedbacks { get; set; } = new List<ProductFeedback>();
+
+      /// <summary>
+      /// Collection of all sales records for this product
+      /// </summary>
+      public virtual ICollection<ProductSales> sales { get; set; } = new List<ProductSales>();
+
+      /// <summary>
+      /// Collection of all shipping options for this product
+      /// </summary>
+      public virtual ICollection<Shipping> shipping_options { get; set; } = new List<Shipping>();
+
+      public virtual ICollection<OrderItem> order_items { get; set; } = new List<OrderItem>();
 }

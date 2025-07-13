@@ -65,4 +65,9 @@ public class User
       public decimal longitude { get; set; }
 
       public DateTime created_at { get; set; }
+      
+      /// <summary>
+      /// Collection of shipping methods offered by this seller
+      /// </summary>
+      public virtual ICollection<ShippingMethod> shipping_methods { get; set; } = new List<ShippingMethod>();
 }
