@@ -67,7 +67,17 @@ public class User
       public DateTime created_at { get; set; }
       
       /// <summary>
-      /// Collection of shipping methods offered by this seller
+      /// Collection of delivery methods offered by this seller
       /// </summary>
-      public virtual ICollection<ShippingMethod> shipping_methods { get; set; } = new List<ShippingMethod>();
+      public virtual ICollection<DeliveryMethod> delivery_methods { get; set; } = new List<DeliveryMethod>();
+
+      /// <summary>
+      /// Collection of orders placed by this customer
+      /// </summary>
+      public virtual ICollection<Order> orders { get; set; } = new List<Order>();
+
+      /// <summary>
+      /// Collection of delivery addresses for this customer
+      /// </summary>
+      public virtual ICollection<DeliveryAddress> delivery_addresses { get; set; } = new List<DeliveryAddress>();
 }

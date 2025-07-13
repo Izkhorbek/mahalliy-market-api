@@ -12,6 +12,17 @@ public class Refund
     [Key]
     public int refund_id { get; set; }
     
+     /// <summary>
+    /// Unique identifier for the cancellation
+    /// </summary>
+    public int cancellation_id {get;set;}
+
+    /// <summary>
+    /// Navigation property to the Cancellation
+    /// </summary>
+    [ForeignKey("cancellation_id")]
+    public virtual Cancellation? cancellation{ get; set; }
+
     /// <summary>
     /// ID of the order being refunded
     /// </summary>
@@ -188,10 +199,10 @@ public class Refund
     [StringLength(20, ErrorMessage = "Refund type cannot exceed 20 characters")]
     public string? refund_type { get; set; }
     
-    /// <summary>
-    /// Priority level of the refund request
-    /// </summary>
-    public int priority { get; set; } = 1;
+    // /// <summary>
+    // /// Priority level of the refund request
+    // /// </summary>
+    // public int priority { get; set; } = 1;
     
     /// <summary>
     /// Indicates if refund is urgent

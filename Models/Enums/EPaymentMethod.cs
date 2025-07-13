@@ -25,43 +25,8 @@ public enum EPaymentMethod
     /// </summary>
     BankTransfer = 4,
     
-    // /// <summary>
-    // /// Mobile money payment
-    // /// </summary>
-    // MobileMoney = 5,
-    
-    // /// <summary>
-    // /// Digital wallet payment
-    // /// </summary>
-    // DigitalWallet = 6,
-    
-    // /// <summary>
-    // /// PayPal payment
-    // /// </summary>
-    // PayPal = 7,
-    
-    // /// <summary>
-    // /// Cryptocurrency payment
-    // /// </summary>
-    // Cryptocurrency = 8,
-    
-    // /// <summary>
-    // /// Check payment
-    // /// </summary>
-    // Check = 9,
-    
-    // /// <summary>
-    // /// Money order
-    // /// </summary>
-    // MoneyOrder = 10,
-    
-    // /// <summary>
-    // /// Installment payment
-    // /// </summary>
-    // Installment = 11,
-    
     /// <summary>
     /// Other payment methods
     /// </summary>
-    Other = 12
+    Other = 5
 } 

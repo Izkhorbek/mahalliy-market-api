@@ -25,17 +25,6 @@ public class Cancellation
     public virtual Order? order { get; set; }
     
     /// <summary>
-    /// ID of the payment being cancelled
-    /// </summary>
-    public int? payment_id { get; set; }
-    
-    /// <summary>
-    /// Navigation property to the payment
-    /// </summary>
-    [ForeignKey("payment_id")]
-    public virtual Payment? payment { get; set; }
-    
-    /// <summary>
     /// ID of the customer requesting cancellation
     /// </summary>
     [Required(ErrorMessage = "Customer ID is required")]
@@ -94,33 +83,11 @@ public class Cancellation
     public virtual User? processor { get; set; }
     
     /// <summary>
-    /// Original order amount before cancellation
-    /// </summary>
-    [Required(ErrorMessage = "Order amount is required")]
-    [Range(0.01, 1000000.00, ErrorMessage = "Order amount must be between $0.01 and $1,000,000.00")]
-    [Column(TypeName = "decimal(18,2)")]
-    public decimal order_amount { get; set; }
-    
-    /// <summary>
-    /// Cancellation charges/fees applied
-    /// </summary>
-    [Range(0, 1000000.00, ErrorMessage = "Cancellation charges must be between $0.00 and $1,000,000.00")]
-    [Column(TypeName = "decimal(18,2)")]
-    public decimal cancellation_charges { get; set; } = 0;
-    
-    /// <summary>
     /// Refund amount after deducting cancellation charges
     /// </summary>
     [Range(0, 1000000.00, ErrorMessage = "Refund amount must be between $0.00 and $1,000,000.00")]
     [Column(TypeName = "decimal(18,2)")]
     public decimal refund_amount { get; set; }
-    
-//     /// <summary>
-//     /// Currency of the amounts
-//     /// </summary>
-//     [Required(ErrorMessage = "Currency is required")]
-//     [StringLength(3, MinimumLength = 3, ErrorMessage = "Currency must be exactly 3 characters")]
-//     public string currency { get; set; } = "UZS";
     
     /// <summary>
     /// Additional remarks or notes about the cancellation
@@ -129,53 +96,7 @@ public class Cancellation
     public string? remarks { get; set; }
     
     /// <summary>
-    /// Cancellation type (Full, Partial, etc.)
-    /// </summary>
-    [StringLength(20, ErrorMessage = "Cancellation type cannot exceed 20 characters")]
-    public string? cancellation_type { get; set; }
-    
-    /// <summary>
-    /// Priority level of the cancellation request
-    /// </summary>
-    public int priority { get; set; } = 1;
-    
-    /// <summary>
-    /// Indicates if cancellation is urgent
-    /// </summary>
-    public bool is_urgent { get; set; } = false;
-    
-    /// <summary>
-    /// Indicates if customer was notified about cancellation
-    /// </summary>
-    public bool customer_notified { get; set; } = false;
-    
-    /// <summary>
-    /// Indicates if seller was notified about cancellation
-    /// </summary>
-    public bool seller_notified { get; set; } = false;
-    
-    /// <summary>
-    /// Timestamp when customer was notified
-    /// </summary>
-    public DateTime? customer_notified_at { get; set; }
-    
-    /// <summary>
-    /// Timestamp when seller was notified
-    /// </summary>
-    public DateTime? seller_notified_at { get; set; }
-    
-    /// <summary>
-    /// Indicates if the cancellation is active and valid
-    /// </summary>
-    public bool is_active { get; set; } = true;
-    
-    /// <summary>
     /// Timestamp when the cancellation record was created
     /// </summary>
     public DateTime created_at { get; set; } = DateTime.UtcNow;
-    
-    /// <summary>
-    /// Timestamp when the cancellation record was last updated
-    /// </summary>
-    public DateTime updated_at { get; set; } = DateTime.UtcNow;
 }

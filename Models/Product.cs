@@ -76,9 +76,12 @@ public class Product
       public virtual ICollection<ProductSales> sales { get; set; } = new List<ProductSales>();
 
       /// <summary>
-      /// Collection of all shipping options for this product
+      /// Collection of all delivery options for this product
       /// </summary>
-      public virtual ICollection<Shipping> shipping_options { get; set; } = new List<Shipping>();
+      public virtual ICollection<Delivery> delivery_options { get; set; } = new List<Delivery>();
 
+      /// <summary>
+      /// Collection of all order options for this product
+      /// </summary>
       public virtual ICollection<OrderItem> order_items { get; set; } = new List<OrderItem>();
 }

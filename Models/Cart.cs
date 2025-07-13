@@ -61,11 +61,11 @@ public class Cart
     public decimal tax_amount { get; set; } = 0;
     
     /// <summary>
-    /// Shipping cost for the cart
+    /// Delivery cost for the cart
     /// </summary>
-    [Range(0, 1000000.00, ErrorMessage = "Shipping cost must be between $0.00 and $1,000,000.00")]
+    [Range(0, 1000000.00, ErrorMessage = "Delivery cost must be between $0.00 and $1,000,000.00")]
     [Column(TypeName = "decimal(18,2)")]
-    public decimal shipping_cost { get; set; } = 0;
+    public decimal delivery_cost { get; set; } = 0;
     
     /// <summary>
     /// Final total amount including all charges
