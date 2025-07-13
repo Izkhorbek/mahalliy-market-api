@@ -13,7 +13,7 @@ public class Product
       public int user_id { get; set; }
 
       [ForeignKey("user_id")]
-      public User user { get; set; } 
+      public User? user { get; set; } 
 
       [Required(ErrorMessage = "Product Name is required.")]
       [StringLength(100, MinimumLength = 10, ErrorMessage = "Product Name must be between 3 and 100 characters.")]
@@ -78,7 +78,7 @@ public class Product
       /// <summary>
       /// Collection of all delivery options for this product
       /// </summary>
-      public virtual ICollection<Delivery> delivery_options { get; set; } = new List<Delivery>();
+      public virtual ICollection<DeliveryMethod> delivery_options { get; set; } = new List<DeliveryMethod>();
 
       /// <summary>
       /// Collection of all order options for this product

@@ -86,6 +86,6 @@ public class DeliveryMethod
     /// <summary>
     /// Timestamp when the delivery method was last updated
     /// </summary>
-    public DateTime? updated_at { get; set; };
+    public DateTime? updated_at { get; set; }
 
 }

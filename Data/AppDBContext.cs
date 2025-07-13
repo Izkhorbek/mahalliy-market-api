@@ -12,19 +12,5 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         // Configure your entity mappings here
         // For example:
         // modelBuilder.Entity<Product>().ToTable("Products");
-
-        modelBuilder.Entity<Products>(entity =>
-        {
-            entity.ToTable("Products");
-            entity.HasKey(p => p.Id);
-            entity.Property(p => p.Name).IsRequired().HasMaxLength(100);
-            entity.Property(p => p.Description).HasMaxLength(500);
-            entity.Property(p => p.Price).HasColumnType("decimal(18,2)");
-            entity.Property(p => p.ImageUrl).HasMaxLength(200);
-            entity.Property(p => p.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
-            entity.Property(p => p.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
-        });
     }
-    
-    public DbSet<Products> Products { get; set; }
 }

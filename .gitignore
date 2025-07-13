@@ -8,3 +8,5 @@ bin/
 *.user
 # Ignore all appsetting.json files
 appsettings.json
+vs/
+**vs/

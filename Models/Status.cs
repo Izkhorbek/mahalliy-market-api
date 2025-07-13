@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-using namespace MahalliyMarket.Models.Enums;
+
+namespace MahalliyMarket.Models;
 
 // Represents the status master
 public class Status

@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace MahalliyMarket.Models;
 
 /// <summary>

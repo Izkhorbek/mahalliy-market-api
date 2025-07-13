@@ -1,2 +1,0 @@
-database: PostgreSQL
-schema: mahalliyDB

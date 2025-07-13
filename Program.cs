@@ -20,7 +20,8 @@ namespace MahalliyMarket
 
             // Register the PostgreSQL database context
             builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))); 
+                options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),  
+                    ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")))); 
 
             var app = builder.Build();
 
