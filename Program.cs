@@ -1,4 +1,3 @@
-
 using MahalliyMarket.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,10 +17,17 @@ namespace MahalliyMarket
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // Register the PostgreSQL database context
             builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),  
-                    ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")))); 
+            {
+                var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+                if (string.IsNullOrEmpty(connectionString))
+                {
+                    throw new InvalidOperationException("Connection string is missing");
+                }
+
+                options.UseMySQL(connectionString);
+            }, ServiceLifetime.Scoped);
+
 
             var app = builder.Build();
 

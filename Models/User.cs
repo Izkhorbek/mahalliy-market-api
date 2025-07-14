@@ -65,6 +65,11 @@ public class User
       public decimal longitude { get; set; }
 
       public DateTime created_at { get; set; }
+
+      /// <summary>
+      /// Collection of cart items for this customer
+      /// </summary>
+      public virtual ICollection<Product> products { get; set; } = new List<Product>();
       
       /// <summary>
       /// Collection of delivery methods offered by this seller
@@ -80,4 +85,7 @@ public class User
       /// Collection of delivery addresses for this customer
       /// </summary>
       public virtual ICollection<DeliveryAddress> delivery_addresses { get; set; } = new List<DeliveryAddress>();
+      
+
+      
 }

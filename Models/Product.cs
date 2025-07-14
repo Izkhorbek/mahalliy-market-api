@@ -42,7 +42,7 @@ public class Product
       public int category_id { get; set; }
 
       [ForeignKey("category_id")]
-      public Category category { get; set; }
+      public Category? category { get; set; }
 
       /// <summary>
       /// ID of the primary/featured image for this product
@@ -84,4 +84,5 @@ public class Product
       /// Collection of all order options for this product
       /// </summary>
       public virtual ICollection<OrderItem> order_items { get; set; } = new List<OrderItem>();
+      
 }
