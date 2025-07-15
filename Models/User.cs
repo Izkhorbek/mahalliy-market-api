@@ -69,22 +69,22 @@ public class User
       /// <summary>
       /// Collection of cart items for this customer
       /// </summary>
-      public virtual ICollection<Product> products { get; set; } = new List<Product>();
+      public  ICollection<Product> products { get; set; } = new List<Product>();
       
       /// <summary>
       /// Collection of delivery methods offered by this seller
       /// </summary>
-      public virtual ICollection<DeliveryMethod> delivery_methods { get; set; } = new List<DeliveryMethod>();
+      public  ICollection<DeliveryMethod> delivery_methods { get; set; } = new List<DeliveryMethod>();
 
       /// <summary>
       /// Collection of orders placed by this customer
       /// </summary>
-      public virtual ICollection<Order> orders { get; set; } = new List<Order>();
+      public  ICollection<Order> orders { get; set; } = new List<Order>();
 
       /// <summary>
       /// Collection of delivery addresses for this customer
       /// </summary>
-      public virtual ICollection<DeliveryAddress> delivery_addresses { get; set; } = new List<DeliveryAddress>();
+      public  ICollection<DeliveryAddress> delivery_addresses { get; set; } = new List<DeliveryAddress>();
       
 
       

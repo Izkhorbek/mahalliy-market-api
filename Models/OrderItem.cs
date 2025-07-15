@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,7 +21,7 @@ public class OrderItem
     /// Navigation property to the order
     /// </summary>
     [ForeignKey("order_id")]
-    public virtual Order? order { get; set; }
+    public Order? order { get; set; }
 
     /// <summary>
     /// ID of the product in this order item
@@ -34,7 +33,7 @@ public class OrderItem
     /// Navigation property to the product
     /// </summary>
     [ForeignKey("product_id")]
-    public virtual Product? product { get; set; }
+    public Product? product { get; set; }
 
     /// <summary>
     /// ID of the seller who sold this product
@@ -46,7 +45,7 @@ public class OrderItem
     /// Navigation property to the seller
     /// </summary>
     [ForeignKey("seller_id")]
-    public virtual User? seller { get; set; }
+    public User? seller { get; set; }
 
     /// <summary>
     /// Quantity of the product ordered

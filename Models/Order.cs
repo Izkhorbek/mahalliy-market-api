@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -36,7 +35,7 @@ public class Order
     /// Navigation property to the customer
     /// </summary>
     [ForeignKey("customer_id")]
-    public virtual User? customer { get; set; }
+    public User? customer { get; set; }
 
     /// <summary>
     /// ID of the delivery address for this order
@@ -48,7 +47,7 @@ public class Order
     /// Navigation property to the delivery address
     /// </summary>
     [ForeignKey("delivery_address_id")]
-    public virtual DeliveryAddress? delivery_address { get; set; }
+    public DeliveryAddress? delivery_address { get; set; }
 
     /// <summary>
     /// Total base amount before discounts and delivery
@@ -81,7 +80,7 @@ public class Order
     /// Navigation property to the delivery method
     /// </summary>
     [ForeignKey("delivery_method_id")]
-    public virtual DeliveryMethod? delivery_method { get; set; }
+    public DeliveryMethod? delivery_method { get; set; }
 
     /// <summary>
     /// Current status of the order
@@ -110,15 +109,9 @@ public class Order
     public DateTime? expected_delivery_date { get; set; }
 
     /// <summary>
-    /// ID of the payment associated with this order
+    /// Linked with associated  payment
     /// </summary>
-    public int? payment_id { get; set; }
-
-    /// <summary>
-    /// Navigation property to the payment
-    /// </summary>
-    [ForeignKey("payment_id")]
-    public virtual Payment? payment { get; set; }
+    public Payment? payment { get; set; }
 
     /// <summary>
     /// Timestamp when the order was created
@@ -128,5 +121,5 @@ public class Order
     /// <summary>
     /// Collection of order items in this order
     /// </summary>
-    public virtual ICollection<OrderItem> order_items { get; set; } = new List<OrderItem>();
+    public ICollection<OrderItem> order_items { get; set; } = new List<OrderItem>();
 }

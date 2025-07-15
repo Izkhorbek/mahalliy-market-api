@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,7 +21,7 @@ public class DeliveryAddress
     /// Navigation property to the customer
     /// </summary>
     [ForeignKey("customer_id")]
-    public virtual User? customer { get; set; }
+    public User? customer { get; set; }
 
     /// <summary>
     /// Name for this address (e.g., "Home", "Work", "Summer House")
