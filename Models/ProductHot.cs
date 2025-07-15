@@ -21,7 +21,7 @@ public class ProductHot
     /// Navigation property to the associated product
     /// </summary>
     [ForeignKey("product_id")]
-    public Product product { get; set; }
+    public Product? product { get; set; }
 
     /// <summary>
     /// Priority of the hot product (higher means more prominent)

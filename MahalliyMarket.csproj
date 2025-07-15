@@ -20,11 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="Services\" />
     <Folder Include="CommonUtils\" />
-    <Folder Include="Services\Interfaces\" />
   </ItemGroup>
 
 </Project>

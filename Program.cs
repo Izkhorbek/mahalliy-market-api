@@ -1,5 +1,7 @@
 using MahalliyMarket.Data;
 using Microsoft.EntityFrameworkCore;
+using MahalliyMarket.Services.Interfaces;
+using MahalliyMarket.Services;
 
 namespace MahalliyMarket
 {
@@ -27,6 +29,8 @@ namespace MahalliyMarket
 
                 options.UseMySQL(connectionString);
             }, ServiceLifetime.Scoped);
+
+            builder.Services.AddScoped<IProductService, ProductService>();
 
 
             var app = builder.Build();
