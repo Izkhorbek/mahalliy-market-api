@@ -5,11 +5,11 @@ public enum ERole
     /// <summary>
     /// Super Admin role
     /// </summary>
-    SuperAdmin = 2000,
+    //SuperAdmin = 2000,
     /// <summary>
     /// Admin role
     /// </summary>
-    Admin,
+    //Admin,
     /// <summary>
     /// Seller role
     /// </summary>

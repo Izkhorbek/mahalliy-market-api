@@ -1,62 +1,56 @@
 ﻿using System.Net;
+using Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure;
 
 namespace MahalliyMarket.DTOs
 {
     public class ApiResponse<T>
     {
-        // HTTP Status Code of the response
-        public int StatusCode { get; set; }
+               //HTTP Status Code of the response
+        public HttpStatusCode status_code { get; set; }
 
-        // Indicates whether the request was successful
-        public bool Success { get; set; }
+        //Indicates whether the request was successful
+        public bool success { get; set; }
 
-        // Response data in case of success
-        public T? Data { get; set; } // Made nullable to address CS8618
+        //Response data in case of success
+        public T? data { get; set; } 
 
-        // List of errors in case of failure
-        public List<string> Errors { get; set; }
+        //List of errors in case of failure
+        public List<string> errors { get; set; } = new List<string>();
 
         public ApiResponse()
         {
-            Success = true;
-            Errors = new List<string>();
+            success = true;
+            errors = new List<string>();
         }
 
         public ApiResponse(int statusCode, T data)
         {
-            StatusCode = statusCode;
-            Success = true;
-            Data = data;
-            Errors = new List<string>();
+            this.status_code = (HttpStatusCode)statusCode;
+            this.success = true;
+            this.data = data;
+            this.errors = new List<string>();
         }
 
         public ApiResponse(HttpStatusCode statusCode, T data)
         {
-            StatusCode = (int)statusCode;
-            Success = true;
-            Data = data;
-            Errors = new List<string>();
+            this.status_code = statusCode;
+            this.success = true;
+            this.data = data;
+            this.errors = new List<string>();
         }
 
-        public ApiResponse(int statusCode, List<string> errors)
+        public ApiResponse(HttpStatusCode statusCode, List<string> errors)
         {
-            StatusCode = statusCode;
-            Success = false;
-            Errors = errors;
-        }
-
-        public ApiResponse(int statusCode, string error)
-        {
-            StatusCode = statusCode;
-            Success = false;
-            Errors = new List<string> { error };
+            this.status_code = statusCode;
+            this.success = false;
+            this.errors = errors;
         }
 
         public ApiResponse(HttpStatusCode statusCode, string error)
         {
-            StatusCode = (int)statusCode;
-            Success = false;
-            Errors = new List<string> { error };
+            this.status_code = statusCode;
+            this.success = false;
+            this.errors = new List<string> { error };
         }
     }
 }

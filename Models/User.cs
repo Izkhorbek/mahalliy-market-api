@@ -66,10 +66,14 @@ public class User
 
       public DateTime created_at { get; set; }
 
+      public DateTime? updated_at { get; set; }
+
+      public bool login_status { get; set; }
+
       /// <summary>
       /// Collection of cart items for this customer
       /// </summary>
-      public  ICollection<Product> products { get; set; } = new List<Product>();
+      public ICollection<Product> products { get; set; } = new List<Product>();
       
       /// <summary>
       /// Collection of delivery methods offered by this seller

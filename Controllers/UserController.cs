@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace MahalliyMarket.Controllers
 {
@@ -7,5 +6,6 @@ namespace MahalliyMarket.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+
     }
 }
