@@ -2,7 +2,6 @@ using MahalliyMarket.Data;
 using Microsoft.EntityFrameworkCore;
 using MahalliyMarket.Services.Interfaces;
 using MahalliyMarket.Services;
-using 
 namespace MahalliyMarket
 {
     public class Program

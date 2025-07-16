@@ -30,6 +30,19 @@ public class UserService : IUserService
 
             var user = new User
             {
+                  first_name = userRegistrationDTO.first_name,
+                  last_name = userRegistrationDTO.last_name,
+                  middle_name = userRegistrationDTO.middle_name ?? "",
+                  email = userRegistrationDTO.email,
+
+
+        //Create password hash and salt
+
+            PasswordHasher.CreatePasswordHash(model.Password, out byte[] passwordHash, out byte[] passwordSalt);
+
+
+                  password_hash = userRegistrationDTO.password_hash ?? userRegistrationDTO.password] = userRegistrationDTO.password
+
                
             };
 

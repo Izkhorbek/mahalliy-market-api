@@ -1,8 +1,9 @@
 using System;
+using AutoMapper;
 
 namespace MahalliyMarket.Mappings;
 
-public class AutoMapperUsers : P
+public class AutoMapperUsers : Profile
 {
 
 }
