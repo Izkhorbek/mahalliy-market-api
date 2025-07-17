@@ -37,11 +37,11 @@ public class User
 
       [Required(ErrorMessage = "Role is required")]
       [StringLength(50, ErrorMessage = "Role must be at most 50 characters long")]
-      public required string user_role { get; set; }
+      public required ERole user_role { get; set; } = ERole.Customer;
 
       [Required(ErrorMessage = "Phone number is required")]
       [StringLength(20, ErrorMessage = "Phone number must be at most 20 characters long")]
-      public required string phone_number { get; set; }
+      public string phone_number { get; set; }
 
       public DateTime? date_birth { get; set; }
 

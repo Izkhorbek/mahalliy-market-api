@@ -1,18 +1,16 @@
-﻿using MahalliyMarket.Models;
+﻿using MahalliyMarket.Data;
 using MahalliyMarket.DTOs;
-using MahalliyMarket.Services.Interfaces;
-using MahalliyMarket.Data;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using MahalliyMarket.DTOs.ProductDTOs;
+using MahalliyMarket.Models;
+using MahalliyMarket.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MahalliyMarket.Services
 {
     public class ProductService : IProductService
     {
         private readonly MahalliyDBContext _context;
-        
+
         public ProductService(MahalliyDBContext context)
         {
             _context = context;
