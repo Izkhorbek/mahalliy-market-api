@@ -3,6 +3,7 @@ using System;
 using MahalliyMarket.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MahalliyMarket.Migrations
 {
     [DbContext(typeof(MahalliyDBContext))]
-    partial class MahalliyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250717081852_changedPostalCode")]
+    partial class changedPostalCode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1279,8 +1282,7 @@ namespace MahalliyMarket.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("city_district")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("created_at")
                         .HasColumnType("datetime(6)");
@@ -1313,8 +1315,7 @@ namespace MahalliyMarket.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("mahalla")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("middle_name")
                         .HasMaxLength(50)
@@ -1334,16 +1335,13 @@ namespace MahalliyMarket.Migrations
                         .HasColumnType("varchar(20)");
 
                     b.Property<string>("postal_code")
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("province")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("street")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime?>("updated_at")
                         .HasColumnType("datetime(6)");

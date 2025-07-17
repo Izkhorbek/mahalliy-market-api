@@ -70,7 +70,7 @@ public class UserService : IUserService
 
     public async Task<ApiResponse<UserResponseDTO>> LoginAsync(UserLoginDTO userLoginDTO)
     {
-        var existingUser = await _context.users.FirstOrDefaultAsync(user => user.email == userLoginDTO.email);
+        var existingUser = await _context.users.FirstAsync(user => user.email.Trim() == userLoginDTO.email.Trim());
 
         string orgPassword = CommonUtils.Decoder.DecodeBase64(userLoginDTO.password);
 
@@ -102,7 +102,6 @@ public class UserService : IUserService
                 longitude = existingUser.longitude
             };
 
-
             //Changed the user as logged in
             existingUser.login_status = true;
 
@@ -111,7 +110,7 @@ public class UserService : IUserService
             return new ApiResponse<UserResponseDTO>(HttpStatusCode.OK, userResponse);
         }
 
-        return new ApiResponse<UserResponseDTO>(HttpStatusCode.NotFound, "Username or Password is incorrect.Please, check again!");
+        return new ApiResponse<UserResponseDTO>(HttpStatusCode.NotFound, "Username or Password is incorrect. Please, check again!");
     }
 
     public async Task<ApiResponse<ConfirmationResponse>> LogoutAsync(UserLoginDTO userLoginDTO)

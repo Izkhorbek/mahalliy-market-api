@@ -3,6 +3,7 @@ using System;
 using MahalliyMarket.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MahalliyMarket.Migrations
 {
     [DbContext(typeof(MahalliyDBContext))]
-    partial class MahalliyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250717082241_modifiedTypes")]
+    partial class modifiedTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

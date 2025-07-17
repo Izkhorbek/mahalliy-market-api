@@ -24,8 +24,14 @@ namespace MahalliyMarket.Controllers
             return StatusCode(confirmation.status_code, confirmation);
         }
 
-        [HttpPost("Login")]
+        [HttpPost]
+        [Route("Login")]
+        public async Task<ActionResult<ApiResponse<UserRegistrationDTO>>> Login(UserLoginDTO loginDTO)
+        {
+            var result = await _userService.LoginAsync(loginDTO);
 
+            return StatusCode(result.status_code, result);
+        }
 
     }
 }

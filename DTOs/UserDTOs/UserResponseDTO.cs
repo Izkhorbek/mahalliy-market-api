@@ -13,7 +13,7 @@ public class UserResponseDTO
     public string? city_district { get; set; }
     public string? mahalla { get; set; }
     public string? street { get; set; }
-    public string postal_code { get; set; }
+    public string? postal_code { get; set; }
     public decimal latitude { get; set; }
     public decimal longitude { get; set; }
 }

@@ -43,15 +43,21 @@ public class User
 
     public DateTime? date_birth { get; set; }
 
+    [StringLength(50, ErrorMessage = "Province must be at most 20 characters long")]
     public string? province { get; set; }
 
+    [StringLength(50, ErrorMessage = "Phone number must be at most 20 characters long")]
     public string? city_district { get; set; }
 
+    [StringLength(50, ErrorMessage = "Phone number must be at most 20 characters long")]
     public string? mahalla { get; set; }
 
+    [StringLength(100, ErrorMessage = "Phone number must be at most 20 characters long")]
     public string? street { get; set; }
 
-    public string postal_code { get; set; }
+
+    [StringLength(20, ErrorMessage = "Phone number must be at most 20 characters long")]
+    public string? postal_code { get; set; }
 
     [Required]
     [Column(TypeName = "decimal(18,2)")]
