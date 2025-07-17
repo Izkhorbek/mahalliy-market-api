@@ -18,57 +18,57 @@ public class UserService : IUserService
         _context = context;
     }
 
-    public async Task<ApiResponse<ConfirmationResponse>> Registration(UserRegistrationDTO userRegistrationDTO)
+    public async Task<ApiResponse<ConfirmationResponse>> RegistrationAsync(UserRegistrationDTO userRegistrationDTO)
     {
         // if The User Role is different then retun
-        if (userRegistrationDTO.user_role != ERole.Customer || userRegistrationDTO.user_role != ERole.Seller)
+        if (userRegistrationDTO.user_role == ERole.Customer || userRegistrationDTO.user_role == ERole.Seller)
         {
-            return new ApiResponse<ConfirmationResponse>(HttpStatusCode.BadRequest, "User must be a Seller or a Customer.");
+            // Check if user exists?
+            var existingUser = await _context.users.FirstOrDefaultAsync(u => u.email == userRegistrationDTO.email);
+
+            if (existingUser != null)
+            {
+                return new ApiResponse<ConfirmationResponse>(HttpStatusCode.BadRequest, "User already exists.");
+            }
+
+            // Convert original password
+            string strPassword = CommonUtils.Decoder.DecodeBase64(userRegistrationDTO.password);
+
+            PasswordHasher.CreatePasswordHash(strPassword, out byte[] passwordHash, out byte[] passwordSalt);
+
+            var user = new User
+            {
+                first_name = userRegistrationDTO.first_name,
+                last_name = userRegistrationDTO.last_name,
+                middle_name = userRegistrationDTO.middle_name,
+                email = userRegistrationDTO.email,
+                user_role = userRegistrationDTO.user_role,
+                password_hash = passwordHash,
+                password_salt = passwordSalt,
+                phone_number = userRegistrationDTO.phone_number,
+                date_birth = userRegistrationDTO.date_birth,
+                province = userRegistrationDTO.province,
+                city_district = userRegistrationDTO.city_district,
+                mahalla = userRegistrationDTO.mahalla,
+                street = userRegistrationDTO.street,
+                postal_code = userRegistrationDTO.postal_code,
+                latitude = userRegistrationDTO.latitude,
+                longitude = userRegistrationDTO.longitude,
+                created_at = DateTime.UtcNow,
+                updated_at = DateTime.UtcNow,
+                login_status = true
+            };
+
+            await _context.users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            return new ApiResponse<ConfirmationResponse>(HttpStatusCode.OK, new ConfirmationResponse("Successfully created"));
         }
 
-        // Check if user exists?
-        var existingUser = await _context.users.FirstOrDefaultAsync(u => u.email == userRegistrationDTO.email);
-
-        if (existingUser != null)
-        {
-            return new ApiResponse<ConfirmationResponse>(HttpStatusCode.BadRequest, "User already exists.");
-        }
-
-        // Convert original password
-        string strPassword = CommonUtils.Decoder.DecodeBase64(userRegistrationDTO.password);
-
-        PasswordHasher.CreatePasswordHash(strPassword, out byte[] passwordHash, out byte[] passwordSalt);
-
-        var user = new User
-        {
-            first_name = userRegistrationDTO.first_name,
-            last_name = userRegistrationDTO.last_name,
-            middle_name = userRegistrationDTO.middle_name,
-            email = userRegistrationDTO.email,
-            user_role = userRegistrationDTO.user_role,
-            password_hash = passwordHash,
-            password_salt = passwordSalt,
-            phone_number = userRegistrationDTO.phone_number,
-            date_birth = userRegistrationDTO.date_birth,
-            province = userRegistrationDTO.province,
-            city_district = userRegistrationDTO.city_district,
-            mahalla = userRegistrationDTO.mahalla,
-            street = userRegistrationDTO.street,
-            postal_code = userRegistrationDTO.postal_code,
-            latitude = userRegistrationDTO.latitude,
-            longitude = userRegistrationDTO.longitude,
-            created_at = DateTime.UtcNow,
-            updated_at = DateTime.UtcNow,
-            login_status = true
-        };
-
-        await _context.users.AddAsync(user);
-        await _context.SaveChangesAsync();
-
-        return new ApiResponse<ConfirmationResponse>(HttpStatusCode.OK, new ConfirmationResponse("Successfully created"));
+        return new ApiResponse<ConfirmationResponse>(HttpStatusCode.BadRequest, "User must be a Seller or a Customer.");
     }
 
-    public async Task<ApiResponse<UserResponseDTO>> Login(UserLoginDTO userLoginDTO)
+    public async Task<ApiResponse<UserResponseDTO>> LoginAsync(UserLoginDTO userLoginDTO)
     {
         var existingUser = await _context.users.FirstOrDefaultAsync(user => user.email == userLoginDTO.email);
 
@@ -114,7 +114,7 @@ public class UserService : IUserService
         return new ApiResponse<UserResponseDTO>(HttpStatusCode.NotFound, "Username or Password is incorrect.Please, check again!");
     }
 
-    public async Task<ApiResponse<ConfirmationResponse>> Logout(UserLoginDTO userLoginDTO)
+    public async Task<ApiResponse<ConfirmationResponse>> LogoutAsync(UserLoginDTO userLoginDTO)
     {
         var existingUser = await _context.users.FirstOrDefaultAsync(user => user.email == userLoginDTO.email);
 
@@ -131,7 +131,7 @@ public class UserService : IUserService
         return new ApiResponse<ConfirmationResponse>(HttpStatusCode.NotFound, "User doesn't exist.");
     }
 
-    public async Task<ApiResponse<ConfirmationResponse>> DeleteCurrentUser(UserLoginDTO userLoginDTO)
+    public async Task<ApiResponse<ConfirmationResponse>> DeleteCurrentUserAsync(UserLoginDTO userLoginDTO)
     {
         var existingUser = await _context.users.FirstOrDefaultAsync(user => user.email == userLoginDTO.email);
 

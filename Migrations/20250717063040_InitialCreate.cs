@@ -4,6 +4,8 @@ using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace MahalliyMarket.Migrations
 {
     /// <inheritdoc />
@@ -67,8 +69,8 @@ namespace MahalliyMarket.Migrations
                     email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     password_hash = table.Column<byte[]>(type: "longblob", nullable: false),
                     password_salt = table.Column<byte[]>(type: "longblob", nullable: false),
-                    role = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    phone = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
+                    user_role = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    phone_number = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
                     date_birth = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     province = table.Column<string>(type: "longtext", nullable: true),
                     city_district = table.Column<string>(type: "longtext", nullable: true),
@@ -77,7 +79,9 @@ namespace MahalliyMarket.Migrations
                     postal_code = table.Column<decimal>(type: "decimal(12,2)", nullable: false),
                     latitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     longitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    login_status = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -818,6 +822,23 @@ namespace MahalliyMarket.Migrations
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.InsertData(
+                table: "statuses",
+                columns: new[] { "status_id", "status_name" },
+                values: new object[,]
+                {
+                    { 1, "Pending" },
+                    { 2, "Confirmed" },
+                    { 3, "Processing" },
+                    { 4, "Completed" },
+                    { 5, "Failed" },
+                    { 6, "Cancelled" },
+                    { 7, "Refunded" },
+                    { 8, "Approved" },
+                    { 9, "Delivered" },
+                    { 10, "OutForDelivery" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_advertisements_created_by",

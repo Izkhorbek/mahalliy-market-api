@@ -6,14 +6,14 @@ namespace MahalliyMarket.Services.Interfaces;
 public interface IUserService
 {
     //Post
-    Task<ApiResponse<ConfirmationResponse>> Registration(UserRegistrationDTO userRegistrationDTO);
+    Task<ApiResponse<ConfirmationResponse>> RegistrationAsync(UserRegistrationDTO userRegistrationDTO);
 
     //Get
-    Task<ApiResponse<UserResponseDTO>> Login(UserLoginDTO userLoginDTO);
+    Task<ApiResponse<UserResponseDTO>> LoginAsync(UserLoginDTO userLoginDTO);
 
     //Put
-    Task<ApiResponse<ConfirmationResponse>> Logout(UserLoginDTO userLoginDTO);
+    Task<ApiResponse<ConfirmationResponse>> LogoutAsync(UserLoginDTO userLoginDTO);
 
     //Delete
-    Task<ApiResponse<ConfirmationResponse>> DeleteCurrentUser(UserLoginDTO userLoginDTO);
+    Task<ApiResponse<ConfirmationResponse>> DeleteCurrentUserAsync(UserLoginDTO userLoginDTO);
 }

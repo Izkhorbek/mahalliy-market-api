@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MahalliyMarket.Migrations
 {
     [DbContext(typeof(MahalliyDBContext))]
-    [Migration("20250715101022_InitialCreate")]
+    [Migration("20250717063040_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -1221,6 +1221,58 @@ namespace MahalliyMarket.Migrations
                     b.HasKey("status_id");
 
                     b.ToTable("statuses");
+
+                    b.HasData(
+                        new
+                        {
+                            status_id = 1,
+                            status_name = "Pending"
+                        },
+                        new
+                        {
+                            status_id = 2,
+                            status_name = "Confirmed"
+                        },
+                        new
+                        {
+                            status_id = 3,
+                            status_name = "Processing"
+                        },
+                        new
+                        {
+                            status_id = 4,
+                            status_name = "Completed"
+                        },
+                        new
+                        {
+                            status_id = 5,
+                            status_name = "Failed"
+                        },
+                        new
+                        {
+                            status_id = 6,
+                            status_name = "Cancelled"
+                        },
+                        new
+                        {
+                            status_id = 7,
+                            status_name = "Refunded"
+                        },
+                        new
+                        {
+                            status_id = 8,
+                            status_name = "Approved"
+                        },
+                        new
+                        {
+                            status_id = 9,
+                            status_name = "Delivered"
+                        },
+                        new
+                        {
+                            status_id = 10,
+                            status_name = "OutForDelivery"
+                        });
                 });
 
             modelBuilder.Entity("MahalliyMarket.Models.User", b =>
@@ -1256,6 +1308,9 @@ namespace MahalliyMarket.Migrations
                     b.Property<decimal>("latitude")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<bool>("login_status")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<decimal>("longitude")
                         .HasColumnType("decimal(18,2)");
 
@@ -1274,7 +1329,7 @@ namespace MahalliyMarket.Migrations
                         .IsRequired()
                         .HasColumnType("longblob");
 
-                    b.Property<string>("phone")
+                    b.Property<string>("phone_number")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
@@ -1285,13 +1340,15 @@ namespace MahalliyMarket.Migrations
                     b.Property<string>("province")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("role")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
                     b.Property<string>("street")
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("updated_at")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("user_role")
+                        .HasMaxLength(50)
+                        .HasColumnType("int");
 
                     b.HasKey("id");
 

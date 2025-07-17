@@ -1305,6 +1305,9 @@ namespace MahalliyMarket.Migrations
                     b.Property<decimal>("latitude")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<bool>("login_status")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<decimal>("longitude")
                         .HasColumnType("decimal(18,2)");
 
@@ -1323,7 +1326,7 @@ namespace MahalliyMarket.Migrations
                         .IsRequired()
                         .HasColumnType("longblob");
 
-                    b.Property<string>("phone")
+                    b.Property<string>("phone_number")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
@@ -1334,13 +1337,15 @@ namespace MahalliyMarket.Migrations
                     b.Property<string>("province")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("role")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
                     b.Property<string>("street")
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("updated_at")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("user_role")
+                        .HasMaxLength(50)
+                        .HasColumnType("int");
 
                     b.HasKey("id");
 

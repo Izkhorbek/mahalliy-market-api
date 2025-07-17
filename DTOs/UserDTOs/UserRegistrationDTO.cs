@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using MahalliyMarket.Models;
+﻿using MahalliyMarket.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace MahalliyMarket.DTOs.UserDTOs
 {
@@ -7,18 +7,14 @@ namespace MahalliyMarket.DTOs.UserDTOs
     {
         [Required(ErrorMessage = "First name is required.")]
         [StringLength(50, ErrorMessage = "First name cannot exceed 50 characters.")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name can only contain letters.")]
         public required string first_name { get; set; }
 
 
         [Required(ErrorMessage = "Last name is required.")]
         [StringLength(50, ErrorMessage = "Last name cannot exceed 50 characters.")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last name can only contain letters.")]
         public required string last_name { get; set; }
 
-
         [StringLength(50, ErrorMessage = "Middle name must be at most 50 characters long")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last name can only contain letters.")]
         public string? middle_name { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
@@ -37,7 +33,7 @@ namespace MahalliyMarket.DTOs.UserDTOs
 
         [Required(ErrorMessage = "Role is required")]
         [EnumDataType(typeof(ERole), ErrorMessage = "Role must be either Seller or Customer.")]
-        public ERole user_role { get; set; }
+        public ERole user_role { get; set; } = ERole.Customer;
 
         [Required(ErrorMessage = "Phone number is required")]
         [StringLength(20, ErrorMessage = "Phone number must be at most 20 characters long")]
@@ -54,7 +50,7 @@ namespace MahalliyMarket.DTOs.UserDTOs
 
         public string? street { get; set; }
 
-        public decimal postal_code { get; set; }
+        public string postal_code { get; set; }
 
         [Required(ErrorMessage = "Latitude is required")]
         public decimal latitude { get; set; }

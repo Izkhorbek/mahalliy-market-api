@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MahalliyMarket.DTOs;
+using MahalliyMarket.DTOs.UserDTOs;
+using MahalliyMarket.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MahalliyMarket.Controllers
 {
@@ -6,6 +9,23 @@ namespace MahalliyMarket.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
+        [HttpPost("Register")]
+        public async Task<ActionResult<ApiResponse<ConfirmationResponse>>> UserRegistration(UserRegistrationDTO registrationDTO)
+        {
+            var confirmation = await _userService.RegistrationAsync(registrationDTO);
+
+            return StatusCode(confirmation.status_code, confirmation);
+        }
+
+        [HttpPost("Login")]
+
 
     }
 }
