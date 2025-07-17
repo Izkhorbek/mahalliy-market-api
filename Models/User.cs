@@ -5,15 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MahalliyMarket.Models;
 
 [Index(nameof(email), Name = "IX_Users_Email", IsUnique = true)]
+[Index(nameof(user_id), Name = "IX_Users_UserId", IsUnique = true)]
 public class User
 {
     [Key]
-    public int id { get; set; }
+    public int user_id { get; set; }
 
     [Required(ErrorMessage = "First name is required")]
     [StringLength(50, ErrorMessage = "First name must be at most 50 characters long")]
     public required string first_name { get; set; }
-
 
     [Required(ErrorMessage = "Last name is required")]
     [StringLength(50, ErrorMessage = "Last name must be at most 50 characters long")]
@@ -72,6 +72,8 @@ public class User
     public DateTime? updated_at { get; set; }
 
     public bool login_status { get; set; }
+
+    public bool is_active { get; set; }
 
     /// <summary>
     /// Collection of cart items for this customer

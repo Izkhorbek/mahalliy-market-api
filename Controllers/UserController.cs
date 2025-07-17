@@ -17,7 +17,7 @@ namespace MahalliyMarket.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<ActionResult<ApiResponse<ConfirmationResponse>>> UserRegistration(UserRegistrationDTO registrationDTO)
+        public async Task<ActionResult<ApiResponse<ConfirmationResponse>>> UserRegistration([FromForm] UserRegistrationDTO registrationDTO)
         {
             var confirmation = await _userService.RegistrationAsync(registrationDTO);
 
@@ -26,12 +26,20 @@ namespace MahalliyMarket.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public async Task<ActionResult<ApiResponse<UserRegistrationDTO>>> Login(UserLoginDTO loginDTO)
+        public async Task<ActionResult<ApiResponse<UserRegistrationDTO>>> Login([FromBody] UserLoginDTO loginDTO)
         {
             var result = await _userService.LoginAsync(loginDTO);
 
             return StatusCode(result.status_code, result);
         }
 
+        [HttpPost]
+        [Route("Logout/{Id}")]
+        public async Task<ActionResult> LogoutAsync(int Id, UserLoginDTO loginDTO)
+        {
+            var result = await _userService.LogoutAsync(Id, loginDTO);
+
+            return StatusCode(result.status_code, result);
+        }
     }
 }

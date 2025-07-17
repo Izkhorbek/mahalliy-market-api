@@ -12,7 +12,7 @@ public interface IUserService
     Task<ApiResponse<UserResponseDTO>> LoginAsync(UserLoginDTO userLoginDTO);
 
     //Put
-    Task<ApiResponse<ConfirmationResponse>> LogoutAsync(UserLoginDTO userLoginDTO);
+    Task<ApiResponse<ConfirmationResponse>> LogoutAsync(int Id, UserLoginDTO userLoginDTO);
 
     //Delete
     Task<ApiResponse<ConfirmationResponse>> DeleteCurrentUserAsync(UserLoginDTO userLoginDTO);

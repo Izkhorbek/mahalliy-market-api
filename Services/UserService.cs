@@ -56,7 +56,8 @@ public class UserService : IUserService
                 longitude = userRegistrationDTO.longitude,
                 created_at = DateTime.UtcNow,
                 updated_at = DateTime.UtcNow,
-                login_status = true
+                login_status = true,
+                is_active = true
             };
 
             await _context.users.AddAsync(user);
@@ -85,6 +86,7 @@ public class UserService : IUserService
 
             var userResponse = new UserResponseDTO
             {
+                user_id = existingUser.user_id,
                 first_name = existingUser.first_name,
                 last_name = existingUser.last_name,
                 middle_name = existingUser.middle_name,
@@ -113,9 +115,9 @@ public class UserService : IUserService
         return new ApiResponse<UserResponseDTO>(HttpStatusCode.NotFound, "Username or Password is incorrect. Please, check again!");
     }
 
-    public async Task<ApiResponse<ConfirmationResponse>> LogoutAsync(UserLoginDTO userLoginDTO)
+    public async Task<ApiResponse<ConfirmationResponse>> LogoutAsync(int Id, UserLoginDTO userLoginDTO)
     {
-        var existingUser = await _context.users.FirstOrDefaultAsync(user => user.email == userLoginDTO.email);
+        var existingUser = await _context.users.FirstOrDefaultAsync(user => user.user_id == Id);
 
         if (existingUser != null)
         {
@@ -138,7 +140,9 @@ public class UserService : IUserService
 
         if (existingUser != null && PasswordHasher.VerifyPasswordHash(strPassword, existingUser.password_hash, existingUser.password_salt))
         {
-            _context.users.Remove(existingUser);
+            //_context.users.Remove(existingUser);
+
+            existingUser.is_active = false;
 
             await _context.SaveChangesAsync();
 

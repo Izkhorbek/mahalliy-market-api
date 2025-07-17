@@ -1274,7 +1274,7 @@ namespace MahalliyMarket.Migrations
 
             modelBuilder.Entity("MahalliyMarket.Models.User", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("user_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -1297,6 +1297,9 @@ namespace MahalliyMarket.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
+
+                    b.Property<bool>("is_active")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("last_name")
                         .IsRequired()
@@ -1352,9 +1355,12 @@ namespace MahalliyMarket.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.HasKey("user_id");
 
                     b.HasIndex(new[] { "email" }, "IX_Users_Email")
+                        .IsUnique();
+
+                    b.HasIndex(new[] { "user_id" }, "IX_Users_UserId")
                         .IsUnique();
 
                     b.ToTable("users");
