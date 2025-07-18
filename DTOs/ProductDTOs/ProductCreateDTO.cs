@@ -1,7 +1,6 @@
-﻿using MahalliyMarket.Models;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MahalliyMarket.DTOs.ProductDTOs
 {
@@ -9,17 +8,16 @@ namespace MahalliyMarket.DTOs.ProductDTOs
     {
         public int user_id { get; set; }
 
-
         [Required(ErrorMessage = "Product Name is required.")]
-        [StringLength(100, MinimumLength = 10, ErrorMessage = "Product Name must be between 3 and 100 characters.")]
-        public  string product_name { get; set; }
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Product Name must be between 3 and 100 characters.")]
+        public string product_name { get; set; }
 
         [Required(ErrorMessage = "Description is required.")]
-        [MinLength(300, ErrorMessage = "Description must be at least 300 characters.")]
-        public  string product_desc { get; set; }
+        [StringLength(300, ErrorMessage = "Description must be at most 300 characters long.")]
+        public string? product_desc { get; set; }
 
         [Range(1, 10000000.00, ErrorMessage = "Price must be between $0.01 and $10,000.00.")]
-        [Column(TypeName = "decimal(18,2)")]
+        [Column(TypeName = "decimal(18,4)")]
         [Comment("Haqiqiy qiymayni olish uchun 1000ga ko'paytirib oling.")]
         public decimal product_price { get; set; }
 

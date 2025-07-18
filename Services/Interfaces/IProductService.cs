@@ -10,7 +10,7 @@ namespace MahalliyMarket.Services.Interfaces
 
         Task<ApiResponse<IEnumerable<Product>>> GetAllProductsAsync();
 
-        Task<ApiResponse<Product>> CreateProductAsync(ProductCreateDTO productDTO);
+        Task<ApiResponse<ConfirmationResponse>> CreateProductAsync(ProductCreateDTO productDTO);
 
         Task<ApiResponse<Product>> UpdateProductAsync(int id, Product product);
 

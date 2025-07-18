@@ -150,5 +150,7 @@ public class UserService : IUserService
         }
 
         return new ApiResponse<ConfirmationResponse>(HttpStatusCode.NotFound, "Somethi is wrong.");
+
+
     }
 }

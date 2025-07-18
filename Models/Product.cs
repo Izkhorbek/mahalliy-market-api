@@ -16,11 +16,11 @@ public class Product
 
     [Required(ErrorMessage = "Product Name is required.")]
     [StringLength(100, MinimumLength = 10, ErrorMessage = "Product Name must be between 3 and 100 characters.")]
-    public required string name { get; set; }
+    public string name { get; set; }
 
     [Required(ErrorMessage = "Description is required.")]
     [MinLength(300, ErrorMessage = "Description must be at least 300 characters.")]
-    public required string description { get; set; }
+    public string? description { get; set; }
 
     [Range(1, 10000000.00, ErrorMessage = "Price must be between $0.01 and $10,000.00.")]
     [Column(TypeName = "decimal(18,2)")]
@@ -46,12 +46,12 @@ public class Product
     /// <summary>
     /// ID of the primary/featured image for this product
     /// </summary>
-    public int? product_image_id { get; set; }
+    public int? primary_image_id { get; set; }
 
     /// <summary>
     /// Navigation property to the primary/featured image
     /// </summary>
-    [ForeignKey("product_image_id")]
+    [ForeignKey("primary_image_id")]
     public ProductImage? primary_image { get; set; }
 
     /// <summary>

@@ -51,5 +51,12 @@ namespace MahalliyMarket.Controllers
             var result = await _productService.DeleteProductAsync(id);
             return StatusCode(result.status_code, result);
         }
+
+
+
+
+
+
+
     }
 }
