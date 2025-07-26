@@ -9,10 +9,10 @@ public class Product
     [Key]
     public int id { get; set; }
 
-    public int user_id { get; set; }
+    public int seller_id { get; set; }
 
-    [ForeignKey("user_id")]
-    public User? user { get; set; }
+    [ForeignKey("seller_id")]
+    public User? seller { get; set; }
 
     [Required(ErrorMessage = "Product Name is required.")]
     [StringLength(100, MinimumLength = 10, ErrorMessage = "Product Name must be between 3 and 100 characters.")]

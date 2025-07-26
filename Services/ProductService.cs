@@ -18,57 +18,70 @@ namespace MahalliyMarket.Services
             _context = context;
         }
 
-        public async Task<ApiResponse<ConfirmationResponse>> CreateProductAsync(ProductCreateDTO productDTO)
+        public async Task<ApiResponse<ConfirmationResponse>> CreateProductAsync(ProductCreateUserDTO productDTO)
         {
-            var domain = new Product
+            try
             {
-                user_id = productDTO.user_id,
-                name = productDTO.product_name,
-                description = productDTO.product_desc,
-                price = productDTO.product_price,
-                quantity = productDTO.product_quantity,
-                tags = productDTO.product_tags,
-                discount_percentage = productDTO.discount_percentage,
-                category_id = productDTO.category_id,
-                primary_image_id = productDTO.primary_image_id,
-            };
+                var domain = new Product
+                {
+                    seller_id = productDTO.user_id,
+                    name = productDTO.product_name,
+                    description = productDTO.product_desc,
+                    price = productDTO.product_price,
+                    quantity = productDTO.product_quantity,
+                    tags = productDTO.product_tags,
+                    discount_percentage = productDTO.discount_percentage,
+                    category_id = productDTO.category_id,
+                    primary_image_id = productDTO.primary_image_id,
+                };
 
-            _context.products.Add(domain);
-            await _context.SaveChangesAsync();
+                _context.products.Add(domain);
+                await _context.SaveChangesAsync();
+
+            }
+            catch ( Exception ex )
+            {
+                return new ApiResponse<ConfirmationResponse>(HttpStatusCode.ExpectationFailed, $"Something happened. error: {ex.Message}");
+            }
 
             return new ApiResponse<ConfirmationResponse>(HttpStatusCode.Created, new ConfirmationResponse("Product is created successfully ."));
         }
 
-
-        public async Task<ApiResponse<ProductResponseDTO>> GetProductByIdAsync(int id)
+        public async Task<ApiResponse<ProductResponseUserDTO>> GetProductByIdAsync(int id)
         {
             var product = await _context.
                 products.Where(p => p.id == id)
                 .Include(p => p.category)
-                .Include(p => p.user)
+                .Include(p => p.seller)
                 .Include(p => p.primary_image)
                 .Include(p => p.images)
-                .Select(p => new ProductResponseDTO
+                .Select(p => new ProductResponseUserDTO
                 {
-                    id = p.id,
+                    product_id = p.id,
                     name = p.name,
-                    description = p.description,
+                    desc = p.description,
                     price = p.price,
                     quantity = p.quantity,
                     tags = p.tags,
                     dis_percent = p.discount_percentage,
+
                     category = p.category != null ? p.category.category_name : "unknown",
-                    primary_image_id = p.primary_image_id,
-                    primary_image = p.primary_image, // or map to DTO if needed
+
+                    primary_image = p.primary_image != null ? new ProductImageUserDTO
+                    {
+                        id = p.primary_image.image_id,
+                        url = p.primary_image.image_url,
+                        alt_text = p.primary_image.alt_text
+                    } : null,
 
                     // Seller (User) DTO mapping
-                    seller = new UserResponseDTO
+                    seller = p.seller != null ? new UserResponseDTO
                     {
-                        user_id = p.user.user_id,
-                        name = p.user.name,
-                        email = p.user.email
+                        user_id = p.seller.user_id,
+                        first_name = p.seller.name,
+                        email = p.p.seller.email
                         // Add other properties as needed
-                    },
+                    } : null,
 
                     images = p.images.Select(img => new ProductImage
                     {
@@ -110,10 +123,10 @@ namespace MahalliyMarket.Services
 
                 });
 
-            if (product == null)
-                return new ApiResponse<ProductResponseDTO>(404, "Product not found");
+            if ( product == null )
+                return new ApiResponse<ProductResponseUserDTO>(404, "Product not found");
 
-            var productDto = new ProductResponseDTO
+            var productDto = new ProductResponseUserDTO
             {
                 id = product.id,
                 seller = product.user != null ? new DTOs.UserDTOs.UserResponseDTO
@@ -144,7 +157,7 @@ namespace MahalliyMarket.Services
                 order_items = product.order_items
             };
 
-            return new ApiResponse<ProductResponseDTO>(200, productDto);
+            return new ApiResponse<ProductResponseUserDTO>(200, productDto);
         }
 
         public async Task<ApiResponse<IEnumerable<Product>>> GetAllProductsAsync()
@@ -157,7 +170,7 @@ namespace MahalliyMarket.Services
         public async Task<ApiResponse<Product>> UpdateProductAsync(int id, Product product)
         {
             var existing = await _context.products.FindAsync(id);
-            if (existing == null)
+            if ( existing == null )
                 return new ApiResponse<Product>(404, "Product not found");
 
             // Update properties (for brevity, only a few shown)
@@ -176,14 +189,19 @@ namespace MahalliyMarket.Services
         public async Task<ApiResponse<bool>> DeleteProductAsync(int id)
         {
             var product = await _context.products.FindAsync(id);
-            if (product == null)
+            if ( product == null )
                 return new ApiResponse<bool>(404, "Product not found");
             _context.products.Remove(product);
             await _context.SaveChangesAsync();
             return new ApiResponse<bool>(200, true);
         }
 
-        public Task<ApiResponse<IEnumerable<ProductResponseDTO>>> GetAllProductByUserIdAsync(int userId)
+        public Task<ApiResponse<IEnumerable<ProductResponseUserDTO>>> GetAllProductByUserIdAsync(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<ApiResponse<Product>> IProductService.GetProductByIdAsync(int id)
         {
             throw new NotImplementedException();
         }

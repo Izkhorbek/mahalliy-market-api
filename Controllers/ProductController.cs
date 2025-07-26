@@ -32,7 +32,7 @@ namespace MahalliyMarket.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<Product>>> Create([FromBody] ProductCreateDTO productDTO)
+        public async Task<ActionResult<ApiResponse<Product>>> Create([FromBody] ProductCreateUserDTO productDTO)
         {
             var result = await _productService.CreateProductAsync(productDTO);
             return StatusCode(result.status_code, result);

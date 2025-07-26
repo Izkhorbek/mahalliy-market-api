@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MahalliyMarket.Models;
@@ -15,13 +15,13 @@ public class ProductFeedback
     /// ID of the user who left the feedback
     /// </summary>
     [Required(ErrorMessage = "User ID is required for feedback")]
-    public int user_id { get; set; }
+    public int customer_id { get; set; }
 
     /// <summary>
     /// Navigation property to the user who left the feedback
     /// </summary>
-    [ForeignKey("user_id")]
-    public User? user { get; set; }
+    [ForeignKey("customer_id")]
+    public User? customer { get; set; }
 
     /// <summary>
     /// ID of the product this feedback is for
@@ -91,16 +91,16 @@ public class ProductFeedback
     [StringLength(500, ErrorMessage = "Moderation notes cannot exceed 500 characters")]
     public string? moderation_notes { get; set; }
 
-    /// <summary>
-    /// ID of the order this feedback is related to (if verified purchase)
-    /// </summary>
-    public int? order_id { get; set; }
+    ///// <summary>
+    ///// ID of the order this feedback is related to (if verified purchase)
+    ///// </summary>
+    //public int? order_id { get; set; }
 
-    /// <summary>
-    /// Navigation property to the related order
-    /// </summary>
-    [ForeignKey("order_id")]
-    public Order? order { get; set; }
+    ///// <summary>
+    ///// Navigation property to the related order
+    ///// </summary>
+    //[ForeignKey("order_id")]
+    //public Order? order { get; set; }
 
     /// <summary>
     /// Timestamp when the feedback was created
@@ -128,3 +128,17 @@ public class ProductFeedback
     [ForeignKey("moderated_by")]
     public User? moderator { get; set; }
 }
+
+//Eslatma
+/*
+    Moderator roli
+    Moderator — foydalanuvchilarning yozgan feedbacklarini:
+
+    Ko‘rib chiqadi (review) — spam, haqorat, noto‘g‘ri baholarni tekshiradi
+
+    Tasdiqlaydi yoki rad etadi (approved/rejected)
+
+    Tahrir qiladi (agar kerak bo‘lsa)
+
+    Bloklaydi yoki yashiradi (visible = false)
+ */

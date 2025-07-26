@@ -3,7 +3,7 @@ using MahalliyMarket.Models;
 
 namespace MahalliyMarket.DTOs.ProductDTOs
 {
-    public class AllProductResponseDTO
+    public class AllProductResponseUserDTO
     {
         public int id { get; set; }
 

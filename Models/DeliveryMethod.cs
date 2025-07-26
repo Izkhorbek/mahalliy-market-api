@@ -24,6 +24,21 @@ public class DeliveryMethod
     public User? seller { get; set; }
 
     /// <summary>
+    /// ID of the seller/business offering this delivery method
+    /// </summary>
+    [Required(ErrorMessage = "Product ID is required")]
+    public int product_id { get; set; }
+
+    /// <summary>
+    /// Navigation property to the product
+    /// </summary>
+    [ForeignKey("product_id")]
+    public Product? product { get; set; }
+
+
+
+
+    /// <summary>
     /// Name/title of the delivery method
     /// </summary>
     [Required(ErrorMessage = "Delivery method name is required")]
@@ -64,7 +79,7 @@ public class DeliveryMethod
     /// Number of days for delivery
     /// </summary>
     [Range(0, 365, ErrorMessage = "Delivery days must be between 0 and 365")]
-    public int delivery_days { get; set; } = 1;
+    public string estimated_time { get; set; }
 
     /// <summary>
     /// Maximum weight for delivery in kg
