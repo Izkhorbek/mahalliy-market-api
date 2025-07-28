@@ -4,6 +4,6 @@
     {
         public int video_id { get; set; }
         public string video_url { get; set; } = "";
-        public string? title { get; set; }
+        public string? video_title { get; set; }
     }
 }

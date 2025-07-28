@@ -2,7 +2,7 @@
 {
     public class ProductFeedbackUserDTO
     {
-        public int id { get; set; }
+        public int feedback_id { get; set; }
         public string comment_text { get; set; } = "";
         public int rating { get; set; }  // e.g. 1–5
         public string? customer_name { get; set; }
