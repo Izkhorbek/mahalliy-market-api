@@ -1,7 +1,8 @@
 using MahalliyMarket.Data;
-using Microsoft.EntityFrameworkCore;
-using MahalliyMarket.Services.Interfaces;
+using MahalliyMarket.Mappings;
 using MahalliyMarket.Services;
+using MahalliyMarket.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 namespace MahalliyMarket
 {
     public class Program
@@ -21,7 +22,7 @@ namespace MahalliyMarket
             builder.Services.AddDbContext<MahalliyDBContext>(options =>
             {
                 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-                if (string.IsNullOrEmpty(connectionString))
+                if ( string.IsNullOrEmpty(connectionString) )
                 {
                     throw new InvalidOperationException("Connection string is missing");
                 }
@@ -37,10 +38,15 @@ namespace MahalliyMarket
             builder.Services.AddScoped<IUserService, UserService>();
 
 
+            // Add Auto Mapper
+            builder.Services.AddAutoMapper(cfg => { }, typeof(AutoMapperProfiles));
+
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            if ( app.Environment.IsDevelopment() )
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();

@@ -1,4 +1,5 @@
-﻿using MahalliyMarket.Data;
+﻿using AutoMapper;
+using MahalliyMarket.Data;
 using MahalliyMarket.DTOs;
 using MahalliyMarket.DTOs.ProductDTOs;
 using MahalliyMarket.DTOs.UserDTOs;
@@ -13,9 +14,12 @@ namespace MahalliyMarket.Services
     {
         private readonly MahalliyDBContext _context;
 
-        public ProductService(MahalliyDBContext context)
+        private readonly IMapper _mapper;
+
+        public ProductService(MahalliyDBContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<ApiResponse<ConfirmationResponse>> CreateProductAsync(ProductCreateUserDTO productDTO)
@@ -49,115 +53,56 @@ namespace MahalliyMarket.Services
 
         public async Task<ApiResponse<ProductResponseUserDTO>> GetProductByIdAsync(int id)
         {
-            var product = await _context.
-                products.Where(p => p.id == id)
+            var productEntity = await _context
+                .products.Where(p => p.id == id)
                 .Include(p => p.category)
                 .Include(p => p.seller)
                 .Include(p => p.primary_image)
                 .Include(p => p.images)
-                .Select(p => new ProductResponseUserDTO
-                {
-                    product_id = p.id,
-                    name = p.name,
-                    desc = p.description,
-                    price = p.price,
-                    quantity = p.quantity,
-                    tags = p.tags,
-                    dis_percent = p.discount_percentage,
+                .Include(p => p.feedbacks)
+                .Include(p => p.sales)
+                .Include(p => p.delivery_options)
+                .FirstOrDefaultAsync();
 
-                    category = p.category != null ? p.category.category_name : "unknown",
-
-                    primary_image = p.primary_image != null ? new ProductImageUserDTO
-                    {
-                        id = p.primary_image.image_id,
-                        url = p.primary_image.image_url,
-                        alt_text = p.primary_image.alt_text
-                    } : null,
-
-                    // Seller (User) DTO mapping
-                    seller = p.seller != null ? new UserResponseDTO
-                    {
-                        user_id = p.seller.user_id,
-                        first_name = p.seller.name,
-                        email = p.p.seller.email
-                        // Add other properties as needed
-                    } : null,
-
-                    images = p.images.Select(img => new ProductImage
-                    {
-                        id = img.id,
-                        url = img.url,
-                        // ...map only the fields you need
-                    }).ToList(),
-
-                    // Other related collections - map if needed
-                    videos = p.videos.Select(v => new ProductVideo
-                    {
-                        id = v.id,
-                        videoUrl = v.videoUrl
-                    }).ToList(),
-
-                    feedbacks = p.feedbacks.Select(f => new ProductFeedback
-                    {
-                        id = f.id,
-                        comment = f.comment
-                    }).ToList(),
-
-                    sales = p.sales.Select(s => new ProductSales
-                    {
-                        id = s.id,
-                        saleDate = s.saleDate
-                    }).ToList(),
-
-                    delivery_options = p.delivery_options.Select(d => new DeliveryMethod
-                    {
-                        id = d.id,
-                        methodName = d.methodName
-                    }).ToList(),
-
-                    order_items = p.order_items.Select(o => new OrderItem
-                    {
-                        id = o.id,
-                        quantity = o.quantity
-                    }).ToList()
-
-                });
-
-            if ( product == null )
+            if ( productEntity == null )
                 return new ApiResponse<ProductResponseUserDTO>(404, "Product not found");
 
-            var productDto = new ProductResponseUserDTO
+            var productDomain = new ProductResponseUserDTO
             {
-                id = product.id,
-                seller = product.user != null ? new DTOs.UserDTOs.UserResponseDTO
-                {
-                    user_id = product.user.user_id,
-                    first_name = product.user.first_name,
-                    last_name = product.user.last_name,
-                    middle_name = product.user.middle_name,
-                    email = product.user.email,
-                    phone_number = product.user.phone_number
-                } : null,
+                product_id = productEntity.id,
+                name = productEntity.name,
+                desc = productEntity.description,
+                price = productEntity.price,
+                quantity = productEntity.quantity,
+                tags = productEntity.tags,
+                dis_percent = productEntity.discount_percentage,
 
+                category = productEntity.category != null ? productEntity.category.category_name : "unknown",
 
-                name = product.name,
-                description = product.description,
-                price = product.price,
-                quantity = product.quantity,
-                tags = product.tags,
-                dis_percent = product.discount_percentage,
-                category = product.category != null ? product.category.category_name : "Unknown",
-                primary_image_id = product.primary_image_id,
-                primary_image = product.primary_image,
-                images = product.images,
-                videos = product.videos,
-                feedbacks = product.feedbacks,
-                sales = product.sales,
-                delivery_options = product.delivery_options,
-                order_items = product.order_items
+                quantity_sold = productEntity.quantity,
+
+                primary_image = productEntity.primary_image != null ? _mapper.Map<ProductImageUserDTO>(productEntity.primary_image) : null,
+
+                // Seller (User) DTO mapping
+                seller = productEntity.seller != null ? _mapper.Map<UserResponseDTO>(productEntity.seller) : null,
+
+                //Images
+                images = _mapper.Map<List<ProductImageUserDTO>>(productEntity.images),
+
+                // Videos
+                videos = _mapper.Map<List<ProductVideoUserDTO>>(productEntity.videos),
+
+                // Feedbacks
+                feedbacks = _mapper.Map<List<ProductFeedbackUserDTO>>(productEntity.feedbacks),
+
+                // Sales
+                sales = _mapper.Map<List<ProductSalesUserDTO>>(productEntity.sales),
+
+                // Delivery method
+                delivery_options = _mapper.Map<List<DeliveryMethodUserDTO>>(productEntity.delivery_options)
             };
 
-            return new ApiResponse<ProductResponseUserDTO>(200, productDto);
+            return new ApiResponse<ProductResponseUserDTO>(200, productDomain);
         }
 
         public async Task<ApiResponse<IEnumerable<Product>>> GetAllProductsAsync()

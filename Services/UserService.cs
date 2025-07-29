@@ -21,12 +21,12 @@ public class UserService : IUserService
     public async Task<ApiResponse<ConfirmationResponse>> RegistrationAsync(UserRegistrationDTO userRegistrationDTO)
     {
         // if The User Role is different then retun
-        if (userRegistrationDTO.user_role == ERole.Customer || userRegistrationDTO.user_role == ERole.Seller)
+        if ( userRegistrationDTO.user_role == ERole.Customer || userRegistrationDTO.user_role == ERole.Seller )
         {
             // Check if user exists?
             var existingUser = await _context.users.FirstOrDefaultAsync(u => u.email == userRegistrationDTO.email);
 
-            if (existingUser != null)
+            if ( existingUser != null )
             {
                 return new ApiResponse<ConfirmationResponse>(HttpStatusCode.BadRequest, "User already exists.");
             }
@@ -75,11 +75,11 @@ public class UserService : IUserService
 
         string orgPassword = CommonUtils.Decoder.DecodeBase64(userLoginDTO.password);
 
-        if (existingUser != null && PasswordHasher.VerifyPasswordHash(orgPassword, existingUser.password_hash, existingUser.password_salt))
+        if ( existingUser != null && PasswordHasher.VerifyPasswordHash(orgPassword, existingUser.password_hash, existingUser.password_salt) )
         {
             // Check a user that isn't logged in 
             // Now by one device is available to log in at same time
-            if (existingUser.login_status == true)
+            if ( existingUser.login_status == true )
             {
                 return new ApiResponse<UserResponseDTO>(HttpStatusCode.Forbidden, "User logged in already.");
             }
@@ -91,7 +91,6 @@ public class UserService : IUserService
                 last_name = existingUser.last_name,
                 middle_name = existingUser.middle_name,
                 email = existingUser.email,
-                password = userLoginDTO.password,
                 phone_number = existingUser.phone_number,
 
                 date_birth = existingUser.date_birth,
@@ -119,7 +118,7 @@ public class UserService : IUserService
     {
         var existingUser = await _context.users.FirstOrDefaultAsync(user => user.user_id == Id);
 
-        if (existingUser != null)
+        if ( existingUser != null )
         {
             // Change the user as logged out
             existingUser.login_status = false;
@@ -138,7 +137,7 @@ public class UserService : IUserService
 
         string strPassword = Decoder.DecodeBase64(userLoginDTO.password);
 
-        if (existingUser != null && PasswordHasher.VerifyPasswordHash(strPassword, existingUser.password_hash, existingUser.password_salt))
+        if ( existingUser != null && PasswordHasher.VerifyPasswordHash(strPassword, existingUser.password_hash, existingUser.password_salt) )
         {
             //_context.users.Remove(existingUser);
 

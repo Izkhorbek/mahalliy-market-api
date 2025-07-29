@@ -24,7 +24,14 @@ public class AutoMapperProfiles : Profile
                  "unknown"))
             .ReverseMap();
 
-        CreateMap<ProductSales, ProductSalesUserDTO>().ReverseMap();
-        CreateMap<DeliveryMethod, DeliveryMethodUserDTO>().ReverseMap();
+        CreateMap<ProductSales, ProductSalesUserDTO>()
+            .ForMember(desc => desc.quantity_sold, act => act.MapFrom(src => src.quantity))
+            .ReverseMap();
+
+        CreateMap<DeliveryMethod, DeliveryMethodUserDTO>()
+            .ForMember(desc => desc.method_id, act => act.MapFrom(src => src.delivery_method_id))
+            .ForMember(desc => desc.is_free, act => act.MapFrom(src => src.is_free_delivery))
+            .ForMember(desc => desc.is_free, act => act.MapFrom(src => src.is_free_delivery))
+            .ReverseMap();
     }
 }
