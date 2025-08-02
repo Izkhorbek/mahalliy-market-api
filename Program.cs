@@ -32,7 +32,7 @@ namespace MahalliyMarket
 
 
             // Dependency Injection
-            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IProductUserService, ProductUserService>();
 
             // User Injection
             builder.Services.AddScoped<IUserService, UserService>();
@@ -40,7 +40,6 @@ namespace MahalliyMarket
 
             // Add Auto Mapper
             builder.Services.AddAutoMapper(cfg => { }, typeof(AutoMapperProfiles));
-
 
 
             var app = builder.Build();

@@ -36,8 +36,6 @@ public class DeliveryMethod
     public Product? product { get; set; }
 
 
-
-
     /// <summary>
     /// Name/title of the delivery method
     /// </summary>

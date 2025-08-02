@@ -31,7 +31,6 @@ public class AutoMapperProfiles : Profile
         CreateMap<DeliveryMethod, DeliveryMethodUserDTO>()
             .ForMember(desc => desc.method_id, act => act.MapFrom(src => src.delivery_method_id))
             .ForMember(desc => desc.is_free, act => act.MapFrom(src => src.is_free_delivery))
-            .ForMember(desc => desc.is_free, act => act.MapFrom(src => src.is_free_delivery))
             .ReverseMap();
     }
 }

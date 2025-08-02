@@ -61,21 +61,6 @@ public class ProductFeedback
     public bool is_verified_purchase { get; set; } = false;
 
     /// <summary>
-    /// Indicates if this feedback is helpful/useful
-    /// </summary>
-    public bool is_helpful { get; set; } = false;
-
-    /// <summary>
-    /// Number of users who found this feedback helpful
-    /// </summary>
-    public int helpful_count { get; set; } = 0;
-
-    /// <summary>
-    /// Number of users who found this feedback not helpful
-    /// </summary>
-    public int not_helpful_count { get; set; } = 0;
-
-    /// <summary>
     /// Indicates if the feedback is active and visible
     /// </summary>
     public bool is_active { get; set; } = true;

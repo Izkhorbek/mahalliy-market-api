@@ -10,9 +10,9 @@ namespace MahalliyMarket.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductService _productService;
+        private readonly IProductUserService _productService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductUserService productService)
         {
             _productService = productService;
         }
